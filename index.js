@@ -79,19 +79,32 @@ function filterItemsByCategoryId(categoryId) {
   // TODO: use the .filter() method to filter out all items which don't belong the passed in category
   return items.filter(item => item.categoryId === categoryId)
 }
-console.log(items.keys.id)
+
 function logCartItems() {
   // TODO: Loop through your cart and use the indexes to log the names of all items in your cart
-  for (let index = 0; index < cart.length; index++) {
-    console.log(cart[index]);
-    // const found = items.find((item) => item.id === cart[index]);
-    // console.log(found)
-    const cartItems = items.find((item, idx) => {return ((item, idx) === cart[index])});
-    // console.log(items)
-    // items.filter(item => item.name === item.id) 
-    // console.log(items.id)
-    console.log(cartItems);
+  const cartItems = cart.map(Number);
+  let cartItems2 = [];
+  for (let index = 0; index < cartItems.length; index++) {
+    cartItems2.push(findItemById(parseInt(cart[index])));
   }
+  console.log(cartItems2.map((item) => item.name));
+}
+
+/**
+ * @returns { number } returns the total price of items in your cart
+ */
+function calculateTotalCartPrice() {
+  // TODO: Loop through your cart and return the total price of all items in your cart
+  const cartItems = cart.map(Number);
+  let cartItems2 = [];
+  for (let index = 0; index < cartItems.length; index++) {
+    cartItems2.push(findItemById(parseInt(cart[index])));
+  }
+  const total = cartItems2.reduce((acc, item) => {
+    acc = acc + item.price;
+    return acc;
+  }, 0);
+  return total;
 }
 
 /**
